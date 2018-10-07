@@ -69,14 +69,13 @@ summary(result$Difference)
 
 ################################################################
 # 두번째 Example code
-# iris의 Species 분류
-# iris Specieies classification
+# iris의 Species 분류 - iris Specieies classification
 
 data <- iris
 k = 5; list <- 1:k
 data$id <- sample(1:k, nrow(data), replace = TRUE)
-
 prediction <- testsetCopy <- data.frame()
+
 #function for k fold
 for(i in 1:k){
   trainset <- subset(data, id %in% list[-i])
@@ -87,12 +86,8 @@ for(i in 1:k){
   testsetCopy <- rbind(testsetCopy, as.data.frame(testset[,5]))
 }
 
-# 예측값과 실제값 데이터프레임.
-# add predictions and actual Sepal Length values
 result <- cbind(prediction, testsetCopy[, 1])
 names(result) <- c("Predicted", "Actual")
-
-# 모델 평가로 confusionmatrix의 정확도 사용.
 library(e1071) ; library(caret) # confusion matrix 내장
 confusionMatrix(result$Predicted, result$Actual)
 
